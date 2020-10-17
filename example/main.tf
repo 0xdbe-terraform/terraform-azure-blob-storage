@@ -1,10 +1,3 @@
-# Terraform Azure Blob Storage
-
-Terraform module to create Azure Storage Account and Container for blob storage.
-
-## Usage
-
-```hcl
 locals {
   application_name = "HelloWorld"
   location         = "eastus"
@@ -23,11 +16,3 @@ module "azure_blob_storage" {
   storage_account_name   = lower(local.application_name)
   storage_container_name = ["images","files"]
 }
-```
-
-## To Do
-
-What still needs to be done:
-
-- [ ] Add public storage container
-- [ ] Manage access control on blob storage
