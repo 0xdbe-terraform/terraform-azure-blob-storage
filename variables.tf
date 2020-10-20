@@ -1,22 +1,41 @@
+variable "azure_location" {
+  type        = string
+  default     = "eastus"
+  description = "Location of the resource in Azure (default: 'eastus', less expensive location)"
+}
+
+variable "application_full_name" {
+  type        = string
+  description = "Name of your project, application, product or service."
+}
+
+variable "application_short_name" {
+  type        = string
+  description = "Short name of your application using abbreviations or acronyms."
+  validation {
+    condition     = can(regex("^\\w+$", var.application_short_name))
+    error_message = "Application short name can only consist of letters and numbers."
+  }
+}
+
+variable "application_environment" {
+  type        = string
+  default     = "prod"
+  description = "Name of the environment (example: dev, test, prod, ...)"
+}
+
 variable "resource_group_name" {
   type        = string
-  default     = "eastus"
-  description = "Resource location in Azure (default: 'eastus', less expensive location)"
+  description = "Name of the Ressource Group in which the storage will be"
 }
 
-variable "location" {
+variable "storage_account_purpose" {
   type        = string
-  default     = "eastus"
-  description = "Resource location in Azure (default: 'eastus', less expensive location)"
-}
-
-variable "storage_account_name" {
-  type        = string
-  description = "Name of the Storage Account"
-
+  description = "Usage of this storage (example: terraform, frontend, file, ...)."
+  default     = ""
   validation {
-    condition     = can(regex("[a-z0-9]{3,24}", var.storage_account_name))
-    error_message = "Storage account name can only consist of lowercase letters and numbers, and must be between 3 and 24 characters long."
+    condition     = length(var.storage_account_purpose) == 0 || can(regex("^\\w+$", var.storage_account_purpose))
+    error_message = "Storage account purpose can only consist of letters and numbers."
   }
 }
 
@@ -44,6 +63,6 @@ variable "storage_account_replication_type" {
 
 variable "storage_container_name" {
   type        = set(string)
-  description = "Name list of the Storage container"
+  description = "Names of the storage container"
   default     = []
 }
