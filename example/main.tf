@@ -14,7 +14,7 @@ module "azure_ressource_group" {
 }
 
 module "azure_blob_storage" {
-  source                  = "git::https://github.com/0xdbe-terraform/terraform-azure-blob-storage.git?ref=v2.0.0"
+  source                  = "git::https://github.com/0xdbe-terraform/terraform-azure-blob-storage.git?ref=v2.0.1"
   azure_location          = local.azure_location
   application_full_name   = local.application_full_name
   application_short_name  = local.application_short_name
